@@ -21,13 +21,25 @@ public class Solution {
         System.out.println("list2 is: ");
         list2. displayList();
 
-        Solution s = new Solution();
-        ListNode result = s.mergeTwoLists(list1.getFirst(), list2.getFirst());
+        ListNode result = mergeTwoLists(list1.getFirst(), list2.getFirst());
 
         System.out.println();
         if (result != null) {
             System.out.println(result.val);
         }
+
+        //-----------------------------
+        ListNode head3 = new ListNode(7);
+        ListNode head2 = new ListNode(5, head3);
+        ListNode head1 = new ListNode(1, head2);
+        ListNode head0 = new ListNode(0, head1);
+
+        ListNode head33 = new ListNode(8);
+        ListNode head22 = new ListNode(4, head33);
+        ListNode head11 = new ListNode(3, head22);
+        ListNode head00 = new ListNode(2, head11);
+
+        System.out.println(mergeTwoLists2(head0, head00));
     }
 
     /**
@@ -40,7 +52,7 @@ public class Solution {
      *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
      * }
      */
-    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+    public static ListNode mergeTwoLists(ListNode list1, ListNode list2) {
         LinkedList mergedList = new LinkedList();
         LinkedList anotherList = new LinkedList();
 
@@ -124,4 +136,24 @@ public class Solution {
         mergedList.displayList();
         return mergedList.getFirst();
     }
+
+    public static ListNode mergeTwoLists2(ListNode l1, ListNode l2) {
+        ListNode prehead = new ListNode(-1);
+        ListNode cur = prehead;
+
+        while (l1 != null && l2 != null) {
+            if (l1.val <= l2.val) {
+                cur.next = l1;
+                l1 = l1.next;
+            } else {
+                cur.next = l2;
+                l2 = l2.next;
+            }
+            cur = cur.next;
+        }
+
+        cur.next = (l1 == null) ? l2 : l1;
+        return prehead.next;
+    }
+
 }
